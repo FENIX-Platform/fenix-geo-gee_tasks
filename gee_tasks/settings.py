@@ -130,3 +130,10 @@ CHANNEL_LAYERS = {
        "ROUTING": "gee_tasks.routing.channel_routing",  # load routing from our routing.py file
    },
 }
+
+# Celery settings
+BROKER_URL = 'redis://localhost:6379/0'  # our redis address
+# use json format for everything
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
