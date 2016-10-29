@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+from celery.schedules import crontab
+from datetime import timedelta
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -128,13 +130,13 @@ STATICFILES_DIRS = [
 
 # Channels settings
 CHANNEL_LAYERS = {
-   "default": {
+    "default": {
        "BACKEND": "asgi_redis.RedisChannelLayer",  # use redis backend
        "CONFIG": {
            "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],  # set redis address
        },
        "ROUTING": "gee_tasks.routing.channel_routing",  # load routing from our routing.py file
-   },
+    },
 }
 
 # Celery settings
@@ -143,3 +145,16 @@ BROKER_URL = 'redis://localhost:6379/0'  # our redis address
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Europe/Rome'
+
+
+#CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler" #use django-celery
+CELERYBEAT_SCHEDULE = {
+    #'mytask-every-10second': {
+    'mytask-every-1minute': {
+        'task': 'jobs.tasks.mytask',
+        #'schedule': timedelta(seconds=10),
+        'schedule': crontab(minute='*/1'),
+        'args': ("myarg"),
+    },
+}
