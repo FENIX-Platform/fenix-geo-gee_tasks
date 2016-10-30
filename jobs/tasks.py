@@ -72,5 +72,6 @@ def mytask(job_id, reply_channel, input):
                 "job_id": job.id,
                 "job_name": job.name,
                 "job_status": job.status,
+                "download_file": input,
             })
         })
