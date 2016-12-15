@@ -23,6 +23,7 @@ class Job(models.Model):
         ('failed', 'failed'),
     )
 
+    name = models.CharField(max_length=255)
     type = models.CharField(choices=TYPES, max_length=20)
     status = models.CharField(choices=STATUSES, max_length=20)
 
