@@ -10,9 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
+from __future__ import absolute_import
 import os
 from celery.schedules import crontab
 from datetime import timedelta
+from channels import Channel, channel_layers
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -39,9 +41,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'channels',
     'jobs',
+    'api',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny',),
+    'PAGINATE_BY': 10
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -149,12 +158,12 @@ CELERY_TIMEZONE = 'Europe/Rome'
 
 
 #CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler" #use django-celery
-CELERYBEAT_SCHEDULE = {
-    #'mytask-every-10second': {
-    'mytask-every-1minute': {
-        'task': 'jobs.tasks.mytask',
-        #'schedule': timedelta(seconds=10),
-        'schedule': crontab(minute='*/1'),
-        'args': ("myarg"),
-    },
-}
+# CELERYBEAT_SCHEDULE = {
+#     #'mytask-every-10second': {
+#     'mytask-every-1minute': {
+#         'task': 'jobs.tasks.mytask',
+#         #'schedule': timedelta(seconds=10),
+#         'schedule': crontab(minute='*/1'),
+#         'args': ('test','reply_channel','http://www.blog.pythonlibrary.org/wp-content/uploads/2012/06/wxDbViewer.zip'),
+#     },
+# }

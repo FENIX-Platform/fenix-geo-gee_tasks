@@ -2,7 +2,8 @@ import json
 import logging
 from channels import Channel
 from channels.sessions import channel_session
-from .models import Job
+from .models import Job as Job
+from api.models import Job as JobApi
 from .tasks import sec3, mytask
 from gee_tasks.celery import app
 
@@ -69,7 +70,7 @@ def start_sec3(data, reply_channel):
 def start_mytask(data, reply_channel, input):
     log.debug("job Name=%s", data['job_name'])
     # Save model to our database
-    job = Job(
+    job = JobApi(
         name=data['job_name'],
         status="started",
     )
