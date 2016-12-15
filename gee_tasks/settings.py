@@ -89,7 +89,7 @@ SWAGGER_SETTINGS = {
     'exclude_url_names': [],
     'exclude_namespaces': [],
     'api_version': '0.1',
-    'api_path': '/',
+    'api_path': '/api',
     'relative_paths': False,
     'enabled_methods': [
         'get',
