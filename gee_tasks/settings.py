@@ -41,10 +41,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'channels',
     'jobs',
     'api',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny',),
+    'PAGINATE_BY': 10
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
