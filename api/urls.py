@@ -7,6 +7,7 @@ from api import views
 router = routers.DefaultRouter()
 # register job endpoint in the router
 router.register(r'jobs', views.JobViewSet)
+router.register(r'docs', views.SwaggerSchemaView, 'docs-view')
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
