@@ -28,14 +28,14 @@ class Job(models.Model):
     status = models.CharField(choices=STATUSES, max_length=20)
     celery_id = models.CharField(max_length=255, null=True, blank=True)
 
-    created_at = models.DateTimeField(default=timezone.now, auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     argument = models.PositiveIntegerField()
     result = models.IntegerField(null=True)
 
     class Meta:
-        ordering = ('created',)
+        ordering = ('created_at',)
 
     def __unicode__(self):
         return self.name
