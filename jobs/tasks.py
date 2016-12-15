@@ -39,17 +39,17 @@ def sec3(job_id, reply_channel):
 
 
 # A periodic task that will run every minute (the symbol "*" means every)
-@periodic_task(
-    run_every=(crontab(minute='*/1')),
-    name="mytask",
-    ignore_result=True
-)
+# @periodic_task(
+#     run_every=(crontab(minute='*/1')),
+#     name="mytask",
+#     ignore_result=True
+# )
 def mytask(job_id, reply_channel, input):
     log.info("Start task")
     # i.e. time to wait for gee processing
     time.sleep(10)
     print "downloading with requests"
-    #url = input
+    # url = input
     url = 'http://www.blog.pythonlibrary.org/wp-content/uploads/2012/06/wxDbViewer.zip'
     r = requests.get(url)
     with open("code3.zip", "wb") as code:
@@ -75,3 +75,13 @@ def mytask(job_id, reply_channel, input):
                 "download_file": input,
             })
         })
+
+
+def hello():
+    return "Hello GEE"
+
+
+TASK_MAPPING = {
+    'hello': hello,
+    'mytask': mytask
+}
