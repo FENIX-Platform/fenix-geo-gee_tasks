@@ -26,12 +26,19 @@ class Job(models.Model):
     name = models.CharField(max_length=255)
     type = models.CharField(choices=TYPES, max_length=20)
     status = models.CharField(choices=STATUSES, max_length=20)
+    celery_id = models.CharField(max_length=255, null=True, blank=True)
 
     created_at = models.DateTimeField(default=timezone.now, auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     argument = models.PositiveIntegerField()
     result = models.IntegerField(null=True)
+
+    class Meta:
+        ordering = ('created',)
+
+    def __unicode__(self):
+        return self.name
 
     def save(self, *args, **kwargs):
         """Save the model and schedule the job if it is in pending state"""
