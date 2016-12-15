@@ -5,7 +5,8 @@ import logging
 import requests
 
 from gee_tasks.celery import app
-from .models import Job
+from .models import Job as Job
+from api.models import Job as JobApi
 from channels import Channel
 from celery.task.schedules import crontab
 from celery.decorators import periodic_task
@@ -58,10 +59,10 @@ def mytask(job_id, reply_channel, input):
         log.info("Task finished: result = %i" % result)
 
     # Change task status to completed
-    job = Job.objects.get(pk=job_id)
+    job = JobApi.objects.get(pk=job_id)
     log.debug("Running job_name=%s", job.name)
 
-    job.status = "completed"
+    job.status = "finished"
     job.save()
 
     # Send status update back to browser client
