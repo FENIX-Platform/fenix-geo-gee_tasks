@@ -11,6 +11,24 @@ class JobViewSet(mixins.CreateModelMixin,
                  mixins.RetrieveModelMixin,
                  viewsets.GenericViewSet):
 
-    """API endpoint that allows to view and create jobs"""
+    """
+    retrieve:
+        Return a job instance.
+
+    list:
+        Return all jobs, ordered by most recently created.
+
+    create:
+        Create a new job.
+
+    delete:
+        Remove an existing job.
+
+    partial_update:
+        Update one or more fields on an existing job.
+
+    update:
+        Update a job.
+    """
     queryset = Job.objects.all()
     serializer_class = JobSerializer
