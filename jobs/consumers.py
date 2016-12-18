@@ -29,6 +29,7 @@ def ws_receive(message):
         return
 
     if data:
+        log.debug("ws message has reply_channel=%s", message['reply_channel'])
         reply_channel = message.reply_channel.name
 
         if data['action'] == "start_sec3":
