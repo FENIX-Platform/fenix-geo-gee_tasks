@@ -192,15 +192,15 @@ CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Europe/Rome'
+# CELERY_IMPORTS = ("jobs.tasks.download", )
 
-
-#CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler" #use django-celery
-# CELERYBEAT_SCHEDULE = {
-#     #'mytask-every-10second': {
-#     'mytask-every-1minute': {
-#         'task': 'jobs.tasks.mytask',
-#         #'schedule': timedelta(seconds=10),
-#         'schedule': crontab(minute='*/1'),
-#         'args': ('test','reply_channel','http://www.blog.pythonlibrary.org/wp-content/uploads/2012/06/wxDbViewer.zip'),
-#     },
-# }
+# CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler" #use django-celery
+CELERYBEAT_SCHEDULE = {
+    'mytask-every-1minute': {
+        'task': 'jobs.tasks.download',
+        # 'schedule': timedelta(seconds=10),
+        'schedule': crontab(minute='*/1'),
+        # 'args': ('test','reply_channel',
+        # 'http://www.blog.pythonlibrary.org/wp-content/uploads/2012/06/wxDbViewer.zip'),
+    },
+}

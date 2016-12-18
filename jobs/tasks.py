@@ -11,6 +11,7 @@ from channels import Channel
 from celery.task.schedules import crontab
 from celery.decorators import periodic_task
 from celery.utils.log import get_task_logger
+from jobs.management.commands import schedule_download
 
 
 log = logging.getLogger(__name__)
@@ -39,12 +40,7 @@ def sec3(job_id, reply_channel):
         })
 
 
-# A periodic task that will run every minute (the symbol "*" means every)
-# @periodic_task(
-#     run_every=(crontab(minute='*/1')),
-#     name="mytask",
-#     ignore_result=True
-# )
+@app.task
 def mytask(job_id, reply_channel, input):
     log.info("Start task")
     # i.e. time to wait for gee processing
@@ -78,8 +74,17 @@ def mytask(job_id, reply_channel, input):
         })
 
 
+@app.task
 def hello():
     return "Hello GEE"
+
+
+# Define the task to be run in the celerybeat
+@app.task
+def download():
+    cmd = schedule_download.Command()
+    options = {}
+    cmd.handle(**options)
 
 
 TASK_MAPPING = {
