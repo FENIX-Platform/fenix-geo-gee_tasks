@@ -31,7 +31,7 @@ class Job(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    argument = models.PositiveIntegerField()
+    argument = models.PositiveIntegerField(null=True)
     result = models.IntegerField(null=True)
 
     class Meta:
