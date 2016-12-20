@@ -45,14 +45,14 @@ Quick start
 
     # Channels settings
 	CHANNEL_LAYERS = {
-		"default": {
-	    	"BACKEND": "asgi_redis.RedisChannelLayer",  # use redis backend
-	       	"CONFIG": {
-	        	"hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],  # set redis address
-	       	},
-	       	"ROUTING": "gee_tasks.routing.channel_routing",  # load routing from our routing.py file
-		},
-	}
+        "default": {
+            "BACKEND": "asgi_redis.RedisChannelLayer",  # use redis backend
+            "CONFIG": {
+                "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],  # set redis address
+            },
+            "ROUTING": "gee_tasks.routing.channel_routing",  # load routing from our routing.py file
+        },
+    }
 
 How to run/debug
 ----------------
