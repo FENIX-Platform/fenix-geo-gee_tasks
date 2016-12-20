@@ -30,13 +30,13 @@ Quick start
 
 .. code-block:: python
 
-	from celery.schedules import crontab
-	CELERYBEAT_SCHEDULE = {
-		'mytask-every-1minute': {
-	    	'task': 'jobs.tasks.download',
-	    	'schedule': crontab(minute='*/1'),
-		},
-	}
+    from celery.schedules import crontab
+    CELERYBEAT_SCHEDULE = {
+        'mytask-every-1minute': {
+            'task': 'jobs.tasks.download',
+            'schedule': crontab(minute='*/1'),
+        },
+    }
 
 3. In your settings or local_settings file, add the configuration of Channels for
    using a REDIS back-end:
