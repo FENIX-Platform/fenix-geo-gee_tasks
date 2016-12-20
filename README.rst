@@ -44,7 +44,7 @@ Quick start
 .. code-block:: python
 
     # Channels settings
-	CHANNEL_LAYERS = {
+    CHANNEL_LAYERS = {
         "default": {
             "BACKEND": "asgi_redis.RedisChannelLayer",  # use redis backend
             "CONFIG": {
